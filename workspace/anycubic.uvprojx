@@ -190,7 +190,7 @@
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>0</useUlib>
+            <useUlib>1</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <nSecure>0</nSecure>
@@ -1145,11 +1145,6 @@
               <FilePath>..\source\Marlin\src\gcode\calibrate\G34_M422.cpp</FilePath>
             </File>
             <File>
-              <FileName>G76_M192_M871.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\Marlin\src\gcode\calibrate\G76_M192_M871.cpp</FilePath>
-            </File>
-            <File>
               <FileName>G425.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\source\Marlin\src\gcode\calibrate\G425.cpp</FilePath>
@@ -1800,14 +1795,19 @@
               <FilePath>..\source\Marlin\src\gcode\feature\runout\M412.cpp</FilePath>
             </File>
             <File>
-              <FileName>M355.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\Marlin\src\gcode\caselight\M355.cpp</FilePath>
-            </File>
-            <File>
               <FileName>M900.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\source\Marlin\src\gcode\feature\advance\M900.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>G76_M871.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\source\Marlin\src\gcode\calibrate\G76_M871.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>M355.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\source\Marlin\src\gcode\feature\caselight\M355.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -1818,6 +1818,11 @@
               <FileName>Delay.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\source\Marlin\src\HAL\shared\Delay.h</FilePath>
+            </File>
+            <File>
+              <FileName>Delay.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\source\Marlin\src\HAL\shared\Delay.cpp</FilePath>
             </File>
             <File>
               <FileName>eeprom_api.cpp</FileName>

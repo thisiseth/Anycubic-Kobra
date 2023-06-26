@@ -163,16 +163,16 @@ xyz_pos_t cartes;
  */
 #if HAS_POSITION_SHIFT
   // The distance that XYZ has been offset by G92. Reset by G28.
-  xyz_pos_t position_shift{0};
+  xyz_pos_t position_shift{{{0}}};
 #endif
 #if HAS_HOME_OFFSET
   // This offset is added to the configured home position.
   // Set by M206, M428, or menu item. Saved to EEPROM.
-  xyz_pos_t home_offset{0};
+  xyz_pos_t home_offset{{{0}}};
 #endif
 #if HAS_HOME_OFFSET && HAS_POSITION_SHIFT
   // The above two are combined to save on computes
-  xyz_pos_t workspace_offset{0};
+  xyz_pos_t workspace_offset{{{0}}};
 #endif
 
 #if HAS_ABL_NOT_UBL

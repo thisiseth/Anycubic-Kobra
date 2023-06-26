@@ -200,6 +200,7 @@ struct RuntimeSerial : public SerialBase< RuntimeSerial<SerialT> >, public Seria
 #define _S_CLASS(N) class Serial##N##T,
 #define _S_NAME(N) Serial##N##T,
 
+#if HAS_MULTI_SERIAL
 template < REPEAT(NUM_SERIAL, _S_CLASS) const uint8_t offset=0, const uint8_t step=1 >
 struct MultiSerial : public SerialBase< MultiSerial< REPEAT(NUM_SERIAL, _S_NAME) offset, step > > {
   typedef SerialBase< MultiSerial< REPEAT(NUM_SERIAL, _S_NAME) offset, step > > BaseClassT;
@@ -216,7 +217,7 @@ struct MultiSerial : public SerialBase< MultiSerial< REPEAT(NUM_SERIAL, _S_NAME)
   static constexpr uint8_t Usage = _BV(step) - 1; // A bit mask containing 'step' bits
 
   #define _OUT_PORT(N) (Usage << (offset + (step * N))),
-  static constexpr uint8_t output[] = { REPEAT(NUM_SERIAL, _OUT_PORT) };
+  //static constexpr uint8_t output[] = { REPEAT(NUM_SERIAL, _OUT_PORT) };
   #undef _OUT_PORT
 
   #define _OUT_MASK(N) | output[N]
@@ -296,6 +297,7 @@ struct MultiSerial : public SerialBase< MultiSerial< REPEAT(NUM_SERIAL, _S_NAME)
     : BaseClassT(e), portMask(mask) REPEAT(NUM_SERIAL, _S_INIT) {}
 
 };
+#endif
 
 // Build the actual serial object depending on current configuration
 #define Serial1Class TERN(SERIAL_RUNTIME_HOOK, RuntimeSerial, BaseSerial)

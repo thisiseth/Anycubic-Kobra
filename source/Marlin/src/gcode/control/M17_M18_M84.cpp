@@ -36,7 +36,7 @@
 #include "../../libs/hex_print.h"
 
 inline stepper_flags_t selected_axis_bits() {
-  stepper_flags_t selected{0};
+  stepper_flags_t selected{{{0}}};
   #if HAS_EXTRUDERS
     if (parser.seen('E')) {
       if (E_TERN0(parser.has_value())) {

@@ -31,7 +31,7 @@ char conv[9] = { 0 };
 #define DIGIMOD(n, f) DIGIT((n)/(f) % 10)
 #define RJDIGIT(n, f) ((n) >= (f) ? DIGIMOD(n, f) : ' ')
 #define MINUSOR(n, alt) (n >= 0 ? (alt) : (n = -n, '-'))
-#define INTFLOAT(V,N) (((V) * 10 * pow(10, N) + ((V) < 0 ? -5: 5)) / 10)      // pow10?
+#define INTFLOAT(V,N) (((V) * 10 * POW(10, N) + ((V) < 0 ? -5: 5)) / 10)      // pow10?
 #define UINTFLOAT(V,N) INTFLOAT((V) < 0 ? -(V) : (V), N)
 
 // Format uint8_t (0-100) as rj string with 123% / _12% / __1% format

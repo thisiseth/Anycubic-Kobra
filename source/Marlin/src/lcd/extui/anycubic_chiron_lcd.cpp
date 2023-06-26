@@ -31,7 +31,7 @@
 #if ENABLED(ANYCUBIC_LCD_CHIRON)
 
 #include "ui_api.h"
-#include "lib/anycubic_chiron/chiron_tft.h"
+#include "anycubic_chiron/chiron_tft.h"
 
 using namespace Anycubic;
 

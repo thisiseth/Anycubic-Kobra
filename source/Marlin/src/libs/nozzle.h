@@ -84,7 +84,7 @@ class Nozzle {
   #if ENABLED(NOZZLE_PARK_FEATURE)
 
     static float park_mode_0_height(const_float_t park_z) __Os;
-    static void park(const uint8_t z_action, const xyz_pos_t &park=NOZZLE_PARK_POINT) __Os;
+    static void park(const uint8_t z_action, const xyz_pos_t &park) __Os;
 
   #endif
 };

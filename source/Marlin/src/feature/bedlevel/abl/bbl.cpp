@@ -361,7 +361,7 @@ float LevelingBilinear::get_z_correction(const xy_pos_t &raw) {
     SERIAL_ECHOLNPGM(" L=", L, " R=", R, " offset=", offset);
   }
   last_offset = offset;
-  //*/
+  */
 
   return offset;
 }

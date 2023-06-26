@@ -126,7 +126,7 @@ public:
       bool                topography_map;
       xy_uint8_t          grid_points;
     #else // Bilinear
-      static constexpr xy_uint8_t grid_points = { GRID_MAX_POINTS_X, GRID_MAX_POINTS_Y };
+      static constexpr xy_uint8_t grid_points = {{{ GRID_MAX_POINTS_X, GRID_MAX_POINTS_Y }}};
     #endif
 
     #if ENABLED(AUTO_BED_LEVELING_BILINEAR)

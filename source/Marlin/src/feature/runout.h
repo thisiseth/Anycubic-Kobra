@@ -154,7 +154,7 @@ class TFilamentMonitor : public FilamentMonitorBase {
         if (ran_out) {
           if(!sensor.state_original) {
             filament_ran_out = true;
-            event_filament_runout();
+            event_filament_runout(extruder);
             planner.synchronize();
           }
           sensor.state_original = 0;
@@ -401,7 +401,7 @@ class FilamentSensorBase {
   class RunoutResponseDebounced {
     private:
       static constexpr int16_t runout_threshold = FILAMENT_RUNOUT_THRESHOLD;
-      static int16_t runout_count;
+      static int16_t runout_count[NUM_RUNOUT_SENSORS];
 
     public:
       static void reset() {

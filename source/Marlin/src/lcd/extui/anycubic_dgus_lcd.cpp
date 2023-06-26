@@ -31,7 +31,7 @@
 #if ENABLED(ANYCUBIC_LCD_DGUS)
 
 #include "ui_api.h"
-#include "lib/anycubic_dgus/dgus_tft.h"
+#include "anycubic_dgus/dgus_tft.h"
 
 using namespace Anycubic;
 

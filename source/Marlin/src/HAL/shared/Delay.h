@@ -32,6 +32,8 @@
 #include "../../core/millis_t.h"
 #include "../../core/macros.h"
 
+void calibrate_delay_loop();
+
 #if defined(__arm__) || defined(__thumb__)
 
     // https://blueprints.launchpad.net/gcc-arm-embedded/+spec/delay-cycles
