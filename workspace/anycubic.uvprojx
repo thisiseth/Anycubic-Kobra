@@ -17,7 +17,7 @@
         <TargetCommonOption>
           <Device>HC32F460PETB</Device>
           <Vendor>HDSC</Vendor>
-          <PackID>HDSC.HC32F460.1.0.7</PackID>
+          <PackID>HDSC.HC32F460.1.0.10</PackID>
           <PackURL>https://raw.githubusercontent.com/hdscmcu/pack/master/</PackURL>
           <Cpu>IRAM(0x1FFF8000,0x8000) IRAM2(0x20000000,0x10000) IROM(0x00000000,0x80000) CPUTYPE("Cortex-M4") FPU2 CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -190,7 +190,7 @@
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>1</useUlib>
+            <useUlib>0</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <nSecure>0</nSecure>
@@ -329,8 +329,8 @@
             <uC99>1</uC99>
             <uGnu>1</uGnu>
             <useXO>0</useXO>
-            <v6Lang>4</v6Lang>
-            <v6LangP>3</v6LangP>
+            <v6Lang>3</v6Lang>
+            <v6LangP>7</v6LangP>
             <vShortEn>0</vShortEn>
             <vShortWch>0</vShortWch>
             <v6Lto>0</v6Lto>
@@ -340,7 +340,7 @@
               <MiscControls>--gnu --diag_suppress=186,66 --cpp11 --multifile</MiscControls>
               <Define>HC32F46x,USE_DEVICE_DRIVER_LIB,__TARGET_FPU_VFP,__FPU_PRESENT=1,ARM_MATH_CM4,__CC_ARM,ARM_MATH_MATRIX_CHECK,ARM_MATH_ROUNDING,__MPU_PRESENT=1,STM32_HIGH_DENSITY,ARDUINO_ARCH_STM32F1,ARDUINO_ARCH_STM32</Define>
               <Undefine></Undefine>
-              <IncludePath>..\source\compoment\adc;..\source\compoment\i2c;..\source\compoment\sdio;..\source\compoment\sdio\sd_card\inc;..\source\compoment\spi;..\source\compoment\uart;..\source\compoment\Utility;..\source\drivers\board;..\source\drivers\library;..\source\drivers\library\inc;..\source\framework\cores;..\source\framework\usb;..\source\framework\variants;..\source\main;..\source\main\hdsc32core;..\source\marlin;..\source\marlin\src;..\source\marlin\src\pins;..\source\marlin\src\core;..\source\marlin\src\feature;..\source\marlin\src\feature\bedlevel;..\source\marlin\src\feature\bedlevel\abl;..\source\marlin\src\feature\bedlevel\mbl;..\source\marlin\src\feature\bedlevel\ubl;..\source\marlin\src\feature\digipot;..\source\marlin\src\feature\leds;..\source\marlin\src\feature\mmu;..\source\marlin\src\feature\password;..\source\marlin\src\gcode;..\source\marlin\src\HAL;..\source\marlin\src\HAL\shared;..\source\marlin\src\HAL\shared\backtrace;..\source\marlin\src\HAL\STM32;..\source\marlin\src\HAL\STM32\tft;..\source\marlin\src\HAL\STM32\inc;..\source\marlin\src\inc;..\source\marlin\src\lcd;..\source\marlin\src\lcd\dogm;..\source\marlin\src\lcd\dogm\fontdata;..\source\marlin\src\lcd\dwin;..\source\marlin\src\lcd\language;..\source\marlin\src\lcd\menu;..\source\marlin\src\lcd\menu\game;..\source\marlin\src\libs;..\source\marlin\src\module;..\source\marlin\src\module\stepper;..\source\marlin\src\module\thermistor;..\source\marlin\src\pins;..\source\marlin\src\pins\stm32f1;..\source\marlin\src\sd;..\source\marlin\src\sd\usb_flashdrive;..\source\marlin\src\sd\usb_flashdrive\lib-uhs2;..\source\marlin\src\lcd\extui;..\source\marlin\src\lcd\extui\lib\anycubic;..\source\marlin\src\lcd\extui\lib\dgus;..\source\marlin\src\lcd\extui\lib\dgus\fysetc;..\source\marlin\src\lcd\extui\lib\dgus\hiprecy;..\source\marlin\src\lcd\extui\lib\dgus\origin;..\source\marlin\src\lcd\extui\lib\ftdi_eve_touch_ui;..\source\marlin\src\lcd\extui\lib\ftdi_eve_touch_ui\archim2-flash;..\source\marlin\src\lcd\extui\lib\ftdi_eve_touch_ui\ftdi_eve_lib;..\source\marlin\src\lcd\extui\lib\ftdi_eve_touch_ui\ftdi_eve_lib\basic;..\source\marlin\src\lcd\extui\lib\ftdi_eve_touch_ui\ftdi_eve_lib\extended;..\source\marlin\src\lcd\extui\lib\ftdi_eve_touch_ui\ftdi_eve_lib\extended\unicode;..\source\marlin\src\lcd\extui\lib\ftdi_eve_touch_ui\ftdi_eve_lib\extras;..\source\marlin\src\lcd\extui\lib\ftdi_eve_touch_ui\language;..\source\marlin\src\lcd\extui\lib\ftdi_eve_touch_ui\screens;..\source\marlin\src\lcd\extui\lib\ftdi_eve_touch_ui\theme;..\source\marlin\src\lcd\extui\\lib\mks_ui;..\source\marlin\src\lcd\HD44780;..\source\marlin\src\sd\usb_flashdrive\lib-uhs3\dyn_SWI;..\source\marlin\src\sd\usb_flashdrive\lib-uhs3\UHS_host;..\source\marlin\src\sd\usb_flashdrive\lib-uhs3\UHS_host\UHS_BULK_STORAGE;..\source\marlin\src\sd\usb_flashdrive\lib-uhs3\UHS_host\USB_HOST_SHIELD;..\source\marlin\src\libs\heatshrink;..\source\marlin\src\libs\L64XX;..\source\marlin\src\lcd\dogm\status;..\source\marlin\src\lcd\dwin\e3v2;..\source\marlin\src\lcd\extui\lib\anycubic_chiron;..\source\marlin\src\lcd\extui\lib\anycubic_dgus;..\source\marlin\src\lcd\extui\lib\anycubic_i3mega;..\source\marlin\src\lcd\tft;..\source\marlin\src\lcd\tft_io;..\source\marlin\src\lcd\TFTGLCD;..\source\marlin\src\lcd\touch;..\source\marlin\src\module\stepper\source;..\source\framework\TMCStepper;..\source\framework\TMCStepper\source;..\source\arduino;..\source\board;..\source\FatFs;..\source\framework\SoftwareSerial</IncludePath>
+              <IncludePath>..\source\compoment\adc;..\source\compoment\i2c;..\source\compoment\sdio;..\source\compoment\sdio\sd_card\inc;..\source\compoment\spi;..\source\compoment\uart;..\source\compoment\Utility;..\source\drivers\board;..\source\drivers\library;..\source\drivers\library\inc;..\source\framework\cores;..\source\framework\usb;..\source\framework\variants;..\source\main;..\source\main\hdsc32core;..\source\marlin;..\source\marlin\src;..\source\marlin\src\pins;..\source\marlin\src\core;..\source\marlin\src\feature;..\source\marlin\src\feature\bedlevel;..\source\marlin\src\feature\bedlevel\abl;..\source\marlin\src\feature\bedlevel\mbl;..\source\marlin\src\feature\bedlevel\ubl;..\source\marlin\src\feature\digipot;..\source\marlin\src\feature\leds;..\source\marlin\src\feature\mmu;..\source\marlin\src\feature\password;..\source\marlin\src\gcode;..\source\marlin\src\HAL;..\source\marlin\src\HAL\shared;..\source\marlin\src\HAL\shared\backtrace;..\source\marlin\src\HAL\STM32;..\source\marlin\src\HAL\STM32\tft;..\source\marlin\src\HAL\STM32\inc;..\source\marlin\src\inc;..\source\marlin\src\lcd;..\source\marlin\src\lcd\dogm;..\source\marlin\src\lcd\dogm\fontdata;..\source\marlin\src\lcd\dwin;..\source\marlin\src\lcd\language;..\source\marlin\src\lcd\menu;..\source\marlin\src\lcd\menu\game;..\source\marlin\src\libs;..\source\marlin\src\module;..\source\marlin\src\module\stepper;..\source\marlin\src\module\thermistor;..\source\marlin\src\pins;..\source\marlin\src\pins\stm32f1;..\source\marlin\src\sd;..\source\marlin\src\sd\usb_flashdrive;..\source\marlin\src\sd\usb_flashdrive\lib-uhs2;..\source\marlin\src\lcd\extui;..\source\marlin\src\lcd\extui\lib\anycubic;..\source\marlin\src\lcd\extui\lib\dgus;..\source\marlin\src\lcd\extui\lib\dgus\fysetc;..\source\marlin\src\lcd\extui\lib\dgus\hiprecy;..\source\marlin\src\lcd\extui\lib\dgus\origin;..\source\marlin\src\lcd\extui\lib\ftdi_eve_touch_ui;..\source\marlin\src\lcd\extui\lib\ftdi_eve_touch_ui\archim2-flash;..\source\marlin\src\lcd\extui\lib\ftdi_eve_touch_ui\ftdi_eve_lib;..\source\marlin\src\lcd\extui\lib\ftdi_eve_touch_ui\ftdi_eve_lib\basic;..\source\marlin\src\lcd\extui\lib\ftdi_eve_touch_ui\ftdi_eve_lib\extended;..\source\marlin\src\lcd\extui\lib\ftdi_eve_touch_ui\ftdi_eve_lib\extended\unicode;..\source\marlin\src\lcd\extui\lib\ftdi_eve_touch_ui\ftdi_eve_lib\extras;..\source\marlin\src\lcd\extui\lib\ftdi_eve_touch_ui\language;..\source\marlin\src\lcd\extui\lib\ftdi_eve_touch_ui\screens;..\source\marlin\src\lcd\extui\lib\ftdi_eve_touch_ui\theme;..\source\marlin\src\lcd\extui\\lib\mks_ui;..\source\marlin\src\lcd\HD44780;..\source\marlin\src\sd\usb_flashdrive\lib-uhs3\dyn_SWI;..\source\marlin\src\sd\usb_flashdrive\lib-uhs3\UHS_host;..\source\marlin\src\sd\usb_flashdrive\lib-uhs3\UHS_host\UHS_BULK_STORAGE;..\source\marlin\src\sd\usb_flashdrive\lib-uhs3\UHS_host\USB_HOST_SHIELD;..\source\marlin\src\libs\heatshrink;..\source\marlin\src\libs\L64XX;..\source\marlin\src\lcd\dogm\status;..\source\marlin\src\lcd\dwin\e3v2;..\source\marlin\src\lcd\extui\anycubic_chiron;..\source\marlin\src\lcd\extui\anycubic_dgus;..\source\marlin\src\lcd\extui\anycubic_i3mega;..\source\marlin\src\lcd\tft;..\source\marlin\src\lcd\tft_io;..\source\marlin\src\lcd\TFTGLCD;..\source\marlin\src\lcd\touch;..\source\marlin\src\module\stepper\source;..\source\framework\TMCStepper;..\source\framework\TMCStepper\source;..\source\arduino;..\source\board;..\source\FatFs;..\source\framework\SoftwareSerial</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -814,6 +814,11 @@
               <FileType>8</FileType>
               <FilePath>..\source\drivers\board\startup.cpp</FilePath>
             </File>
+            <File>
+              <FileName>startup.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\source\drivers\board\startup.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -940,14 +945,14 @@
           <GroupName>src_feature</GroupName>
           <Files>
             <File>
-              <FileName>abl.cpp</FileName>
+              <FileName>bbl.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\source\Marlin\src\feature\bedlevel\abl\abl.cpp</FilePath>
+              <FilePath>..\source\Marlin\src\feature\bedlevel\abl\bbl.cpp</FilePath>
             </File>
             <File>
-              <FileName>abl.h</FileName>
+              <FileName>bbl.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\source\Marlin\src\feature\bedlevel\abl\abl.h</FilePath>
+              <FilePath>..\source\Marlin\src\feature\bedlevel\abl\bbl.h</FilePath>
             </File>
             <File>
               <FileName>bedlevel.cpp</FileName>
@@ -1073,6 +1078,16 @@
               <FileName>runout.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\source\Marlin\src\feature\runout.h</FilePath>
+            </File>
+            <File>
+              <FileName>caselight.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\source\Marlin\src\feature\caselight.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>caselight.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\source\Marlin\src\feature\caselight.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1830,11 +1845,6 @@
               <FilePath>..\source\Marlin\src\HAL\shared\HAL_SPI.h</FilePath>
             </File>
             <File>
-              <FileName>HAL_spi_L6470.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\Marlin\src\HAL\shared\HAL_spi_L6470.cpp</FilePath>
-            </File>
-            <File>
               <FileName>HAL_ST7920.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\source\Marlin\src\HAL\shared\HAL_ST7920.h</FilePath>
@@ -1885,6 +1895,11 @@
               <FilePath>..\source\Marlin\src\HAL\STM32\fastio.h</FilePath>
             </File>
             <File>
+              <FileName>fastio.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\source\Marlin\src\HAL\STM32\fastio.cpp</FilePath>
+            </File>
+            <File>
               <FileName>HAL.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\source\Marlin\src\HAL\STM32\HAL.cpp</FilePath>
@@ -1908,16 +1923,6 @@
               <FileName>timers.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\source\Marlin\src\HAL\STM32\timers.h</FilePath>
-            </File>
-            <File>
-              <FileName>watchdog.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\Marlin\src\HAL\STM32\watchdog.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>watchdog.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\source\Marlin\src\HAL\STM32\watchdog.h</FilePath>
             </File>
             <File>
               <FileName>Conditionals_adv.h</FileName>
@@ -1948,11 +1953,6 @@
               <FileName>sdio.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\source\Marlin\src\HAL\STM32\sdio.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>fastio.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\Marlin\src\HAL\STM32\fastio.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -1999,76 +1999,6 @@
         <Group>
           <GroupName>src_lcd</GroupName>
           <Files>
-            <File>
-              <FileName>chiron_tft.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\Marlin\src\lcd\extui\lib\anycubic_chiron\chiron_tft.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>chiron_tft.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\source\Marlin\src\lcd\extui\lib\anycubic_chiron\chiron_tft.h</FilePath>
-            </File>
-            <File>
-              <FileName>chiron_tft_defs.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\source\Marlin\src\lcd\extui\lib\anycubic_chiron\chiron_tft_defs.h</FilePath>
-            </File>
-            <File>
-              <FileName>FileNavigator.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\Marlin\src\lcd\extui\lib\anycubic_chiron\FileNavigator.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>FileNavigator.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\source\Marlin\src\lcd\extui\lib\anycubic_chiron\FileNavigator.h</FilePath>
-            </File>
-            <File>
-              <FileName>Tunes.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\Marlin\src\lcd\extui\lib\anycubic_chiron\Tunes.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Tunes.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\source\Marlin\src\lcd\extui\lib\anycubic_chiron\Tunes.h</FilePath>
-            </File>
-            <File>
-              <FileName>dgus_FileNavigator.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\Marlin\src\lcd\extui\lib\anycubic_dgus\dgus_FileNavigator.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>dgus_FileNavigator.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\source\Marlin\src\lcd\extui\lib\anycubic_dgus\dgus_FileNavigator.h</FilePath>
-            </File>
-            <File>
-              <FileName>dgus_tft.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\Marlin\src\lcd\extui\lib\anycubic_dgus\dgus_tft.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>dgus_tft.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\source\Marlin\src\lcd\extui\lib\anycubic_dgus\dgus_tft.h</FilePath>
-            </File>
-            <File>
-              <FileName>dgus_tft_defs.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\source\Marlin\src\lcd\extui\lib\anycubic_dgus\dgus_tft_defs.h</FilePath>
-            </File>
-            <File>
-              <FileName>dgus_Tunes.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\Marlin\src\lcd\extui\lib\anycubic_dgus\dgus_Tunes.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>dgus_Tunes.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\source\Marlin\src\lcd\extui\lib\anycubic_dgus\dgus_Tunes.h</FilePath>
-            </File>
             <File>
               <FileName>anycubic_chiron_lcd.cpp</FileName>
               <FileType>8</FileType>
@@ -2123,6 +2053,41 @@
               <FileName>thermistornames.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\source\Marlin\src\lcd\thermistornames.h</FilePath>
+            </File>
+            <File>
+              <FileName>dgus_FileNavigator.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\source\Marlin\src\lcd\extui\anycubic_dgus\dgus_FileNavigator.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>dgus_FileNavigator.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\source\Marlin\src\lcd\extui\anycubic_dgus\dgus_FileNavigator.h</FilePath>
+            </File>
+            <File>
+              <FileName>dgus_tft.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\source\Marlin\src\lcd\extui\anycubic_dgus\dgus_tft.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>dgus_tft.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\source\Marlin\src\lcd\extui\anycubic_dgus\dgus_tft.h</FilePath>
+            </File>
+            <File>
+              <FileName>dgus_tft_defs.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\source\Marlin\src\lcd\extui\anycubic_dgus\dgus_tft_defs.h</FilePath>
+            </File>
+            <File>
+              <FileName>dgus_Tunes.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\source\Marlin\src\lcd\extui\anycubic_dgus\dgus_Tunes.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>dgus_Tunes.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\source\Marlin\src\lcd\extui\anycubic_dgus\dgus_Tunes.h</FilePath>
             </File>
           </Files>
         </Group>

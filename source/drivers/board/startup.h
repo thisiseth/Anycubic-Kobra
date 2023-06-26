@@ -23,7 +23,8 @@
 #include "board_cfg.h" 
 #include "board_gpio.h" 
 #include "board_adc.h"
-#include "../pins/pins.h"
+
+//#include "../pins/pins.h"
 #include "board_sdio.h"
 #include "../cores/usart.h"
 #include "../../arduino/HardwareSerial.h"

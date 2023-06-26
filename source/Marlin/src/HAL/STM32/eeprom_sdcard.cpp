@@ -19,7 +19,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-#if defined(ARDUINO_ARCH_STM32) && !defined(STM32GENERIC)
+
+#include "../platforms.h"
+
+#ifdef HAL_STM32
 
 /**
  * Implementation of EEPROM settings in SD Card
@@ -45,7 +48,7 @@ static char _ALIGN(4) HAL_eeprom_data[MARLIN_EEPROM_SIZE];
 bool PersistentStore::access_start() {
   if (!card.isMounted()) return false;
 
-  SdFile file, root = card.getroot();
+  MediaFile file, root = card.getroot();
   if (!file.open(&root, EEPROM_FILENAME, O_RDONLY))
     return true;
 
@@ -60,7 +63,7 @@ bool PersistentStore::access_start() {
 bool PersistentStore::access_finish() {
   if (!card.isMounted()) return false;
 
-  SdFile file, root = card.getroot();
+  MediaFile file, root = card.getroot();
   int bytes_written = 0;
   if (file.open(&root, EEPROM_FILENAME, O_CREAT | O_WRITE | O_TRUNC)) {
     bytes_written = file.write(HAL_eeprom_data, MARLIN_EEPROM_SIZE);
@@ -88,4 +91,4 @@ bool PersistentStore::read_data(int &pos, uint8_t *value, const size_t size, uin
 }
 
 #endif // SDCARD_EEPROM_EMULATION
-#endif // ARDUINO_ARCH_STM32 && !STM32GENERIC
+#endif // HAL_STM32

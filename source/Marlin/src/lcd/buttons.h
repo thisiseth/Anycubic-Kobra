@@ -26,7 +26,7 @@
 #if ((!HAS_ADC_BUTTONS && IS_NEWPANEL) || BUTTONS_EXIST(EN1, EN2)) && !IS_TFTGLCD_PANEL
   #define HAS_ENCODER_WHEEL 1
 #endif
-#if HAS_ENCODER_WHEEL || ANY_BUTTON(ENC, BACK, UP, DWN, LFT, RT)
+#if (HAS_ENCODER_WHEEL || ANY_BUTTON(ENC, BACK, UP, DOWN, LEFT, RIGHT)) && DISABLED(TOUCH_UI_FTDI_EVE)
   #define HAS_DIGITAL_BUTTONS 1
 #endif
 #if !HAS_ADC_BUTTONS && (IS_RRW_KEYPAD || (HAS_WIRED_LCD && !IS_NEWPANEL))
@@ -38,15 +38,7 @@
   #define HAS_SLOW_BUTTONS 1
 #endif
 
-#if HAS_ENCODER_WHEEL
-  #define ENCODER_PHASE_0 0
-  #define ENCODER_PHASE_1 2
-  #define ENCODER_PHASE_2 3
-  #define ENCODER_PHASE_3 1
-#endif
-
-#if EITHER(HAS_DIGITAL_BUTTONS, DWIN_CREALITY_LCD)
-
+#if EITHER(HAS_DIGITAL_BUTTONS, HAS_DWIN_E3V2)
   // Wheel spin pins where BA is 00, 10, 11, 01 (1 bit always changes)
   #define BLEN_A 0
   #define BLEN_B 1
@@ -62,9 +54,7 @@
   #endif
 
   #if ENABLED(LCD_I2C_VIKI)
-
     #include <LiquidTWI2.h>
-
     #define B_I2C_BTN_OFFSET 3 // (the first three bit positions reserved for EN_A, EN_B, EN_C)
 
     // button and encoder bit positions within 'buttons'
@@ -84,21 +74,15 @@
     // I2C buttons take too long to read inside an interrupt context and so we read them during lcd_update
 
   #elif ENABLED(LCD_I2C_PANELOLU2)
-
     #if !BUTTON_EXISTS(ENC) // Use I2C if not directly connected to a pin
-
       #define B_I2C_BTN_OFFSET 3 // (the first three bit positions reserved for EN_A, EN_B, EN_C)
 
       #define B_MI (PANELOLU2_ENCODER_C << B_I2C_BTN_OFFSET) // requires LiquidTWI2 library v1.2.3 or later
 
       #define BUTTON_CLICK() (buttons & B_MI)
-
     #endif
-
   #endif
-
 #else
-
   #undef BUTTON_EXISTS
   #define BUTTON_EXISTS(...) false
 
@@ -120,9 +104,10 @@
   #define B_ST _BV(BL_ST)
 
   #ifndef BUTTON_CLICK
-    #define BUTTON_CLICK() (buttons & (B_MI|B_ST))
+    #if EN_C
+      #define BUTTON_CLICK() (buttons & (B_MI|B_ST))
+    #endif
   #endif
-
 #endif
 
 #if IS_RRW_KEYPAD
@@ -198,20 +183,20 @@
 #else
   #define _BUTTON_PRESSED_UP false
 #endif
-#if BUTTON_EXISTS(DWN)
-  #define _BUTTON_PRESSED_DWN _BUTTON_PRESSED(DWN)
+#if BUTTON_EXISTS(DOWN)
+  #define _BUTTON_PRESSED_DOWN _BUTTON_PRESSED(DOWN)
 #else
-  #define _BUTTON_PRESSED_DWN false
+  #define _BUTTON_PRESSED_DOWN false
 #endif
-#if BUTTON_EXISTS(LFT)
-  #define _BUTTON_PRESSED_LFT _BUTTON_PRESSED(LFT)
+#if BUTTON_EXISTS(LEFT)
+  #define _BUTTON_PRESSED_LEFT _BUTTON_PRESSED(LEFT)
 #else
-  #define _BUTTON_PRESSED_LFT false
+  #define _BUTTON_PRESSED_LEFT false
 #endif
-#if BUTTON_EXISTS(RT)
-  #define _BUTTON_PRESSED_RT _BUTTON_PRESSED(RT)
+#if BUTTON_EXISTS(RIGHT)
+  #define _BUTTON_PRESSED_RIGHT _BUTTON_PRESSED(RIGHT)
 #else
-  #define _BUTTON_PRESSED_RT false
+  #define _BUTTON_PRESSED_RIGHT false
 #endif
 #if BUTTON_EXISTS(BACK)
   #define _BUTTON_PRESSED_BACK _BUTTON_PRESSED(BACK)

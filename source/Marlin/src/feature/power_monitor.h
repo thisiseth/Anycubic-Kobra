@@ -32,10 +32,10 @@ struct pm_lpf_t {
   uint32_t filter_buf;
   float value;
   void add_sample(const uint16_t sample) {
-    filter_buf = filter_buf - (filter_buf >> K_VALUE) + (uint32_t(sample) << K_SCALE);
+    filter_buf += (uint32_t(sample) << K_SCALE) - (filter_buf >> K_VALUE);
   }
   void capture() {
-    value = filter_buf * (SCALE * (1.0f / (1UL << (PM_K_VALUE + PM_K_SCALE)))) + (POWER_MONITOR_CURRENT_OFFSET);
+    value = filter_buf * (SCALE * (1.0f / (1UL << (PM_K_VALUE + PM_K_SCALE))));
   }
   void reset(uint16_t reset_value = 0) {
     filter_buf = uint32_t(reset_value) << (K_VALUE + K_SCALE);
@@ -69,20 +69,16 @@ public:
   };
 
   #if ENABLED(POWER_MONITOR_CURRENT)
-    FORCE_INLINE static float getAmps() { return amps.value; }
+    FORCE_INLINE static float getAmps() { return amps.value + (POWER_MONITOR_CURRENT_OFFSET); }
     void add_current_sample(const uint16_t value) { amps.add_sample(value); }
   #endif
 
-  #if HAS_POWER_MONITOR_VREF
-    #if ENABLED(POWER_MONITOR_VOLTAGE)
-      FORCE_INLINE static float getVolts() { return volts.value; }
-      FORCE_INLINE static float getVoltsADC() { return volts.filter_buf; }
-    #else
-      FORCE_INLINE static float getVolts() { return POWER_MONITOR_FIXED_VOLTAGE; }  // using a specified fixed valtage as the voltage measurement
-    #endif
-    #if ENABLED(POWER_MONITOR_VOLTAGE)
-      void add_voltage_sample(const uint16_t value) { volts.add_sample(value); }
-    #endif
+  #if ENABLED(POWER_MONITOR_VOLTAGE)
+    FORCE_INLINE static float getVolts() { return volts.value + (POWER_MONITOR_VOLTAGE_OFFSET); }
+    void add_voltage_sample(const uint16_t value) { volts.add_sample(value); }
+  #else
+    FORCE_INLINE static float getVolts() { return POWER_MONITOR_FIXED_VOLTAGE; }    
+    FORCE_INLINE static float getVoltsADC() { return volts.filter_buf; }
   #endif
 
   #if HAS_POWER_MONITOR_WATTS
@@ -99,7 +95,7 @@ public:
       FORCE_INLINE static void set_current_display(const bool b) { SET_BIT_TO(flags, PM_DISP_BIT_I, b); }
       FORCE_INLINE static void toggle_current_display() { TBI(flags, PM_DISP_BIT_I); }
     #endif
-    #if HAS_POWER_MONITOR_VREF
+    #if ENABLED(POWER_MONITOR_VOLTAGE)
       static void draw_voltage();
       FORCE_INLINE static bool voltage_display_enabled() { return TEST(flags, PM_DISP_BIT_V); }
       FORCE_INLINE static void set_voltage_display(const bool b) { SET_BIT_TO(flags, PM_DISP_BIT_V, b); }

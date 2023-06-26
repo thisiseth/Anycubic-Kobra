@@ -20,3 +20,33 @@
  *
  */
 
+/**
+ * servo.cpp - Interrupt driven Servo library for Arduino using 16 bit timers- Version 2
+ * Copyright (c) 2009 Michael Margolis.  All right reserved.
+ */
+
+/**
+ * A servo is activated by creating an instance of the Servo class passing the desired pin to the attach() method.
+ * The servos are pulsed in the background using the value most recently written using the write() method
+ *
+ * Note that analogWrite of PWM on pins associated with the timer are disabled when the first servo is attached.
+ * Timers are seized as needed in groups of 12 servos - 24 servos use two timers, 48 servos will use four.
+ *
+ * The methods are:
+ *
+ * Servo - Class for manipulating servo motors connected to Arduino pins.
+ *
+ * attach(pin)           - Attach a servo motor to an i/o pin.
+ * attach(pin, min, max) - Attach to a pin, setting min and max values in microseconds
+ *                         Default min is 544, max is 2400
+ *
+ * write()               - Set the servo angle in degrees. (Invalid angles —over MIN_PULSE_WIDTH— are treated as µs.)
+ * writeMicroseconds()   - Set the servo pulse width in microseconds.
+ * move(pin, angle)      - Sequence of attach(pin), write(angle), safe_delay(servo_delay[servoIndex]).
+ *                         With DEACTIVATE_SERVOS_AFTER_MOVE it detaches after servo_delay[servoIndex].
+ * read()                - Get the last-written servo pulse width as an angle between 0 and 180.
+ * readMicroseconds()    - Get the last-written servo pulse width in microseconds.
+ * attached()            - Return true if a servo is attached.
+ * detach()              - Stop an attached servo from pulsing its i/o pin.
+ */
+

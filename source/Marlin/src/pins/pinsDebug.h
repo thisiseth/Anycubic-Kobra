@@ -2,6 +2,9 @@
  * Marlin 3D Printer Firmware
  * Copyright (c) 2020 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
+ * Based on Sprinter and grbl.
+ * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -16,6 +19,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
+#pragma once
 
 #include "../inc/MarlinConfig.h"
 
@@ -41,37 +45,25 @@
 #define REPORT_NAME_ANALOG(COUNTER, NAME) _ADD_PIN(#NAME, COUNTER)
 
 #include "pinsDebug_list.h"
-#line 46
+#line 49
 
 // manually add pins that have names that are macros which don't play well with these macros
 #if ANY(AVR_ATmega2560_FAMILY, AVR_ATmega1284_FAMILY, ARDUINO_ARCH_SAM, TARGET_LPC1768)
-  #if SERIAL_PORT == 0
+  #if SERIAL_IN_USE(0)
     static const char RXD_NAME_0[] PROGMEM = { "RXD0" };
     static const char TXD_NAME_0[] PROGMEM = { "TXD0" };
-  #elif SERIAL_PORT == 1
+  #endif
+  #if SERIAL_IN_USE(1)
     static const char RXD_NAME_1[] PROGMEM = { "RXD1" };
     static const char TXD_NAME_1[] PROGMEM = { "TXD1" };
-  #elif SERIAL_PORT == 2
+  #endif
+  #if SERIAL_IN_USE(2)
     static const char RXD_NAME_2[] PROGMEM = { "RXD2" };
     static const char TXD_NAME_2[] PROGMEM = { "TXD2" };
-  #elif SERIAL_PORT == 3
+  #endif
+  #if SERIAL_IN_USE(3)
     static const char RXD_NAME_3[] PROGMEM = { "RXD3" };
     static const char TXD_NAME_3[] PROGMEM = { "TXD3" };
-  #endif
-  #ifdef SERIAL_PORT_2
-    #if SERIAL_PORT_2 == 0
-      static const char RXD_NAME_0[] PROGMEM = { "RXD0" };
-      static const char TXD_NAME_0[] PROGMEM = { "TXD0" };
-    #elif SERIAL_PORT_2 == 1
-      static const char RXD_NAME_1[] PROGMEM = { "RXD1" };
-      static const char TXD_NAME_1[] PROGMEM = { "TXD1" };
-    #elif SERIAL_PORT_2 == 2
-      static const char RXD_NAME_2[] PROGMEM = { "RXD2" };
-      static const char TXD_NAME_2[] PROGMEM = { "TXD2" };
-    #elif SERIAL_PORT_2 == 3
-      static const char RXD_NAME_3[] PROGMEM = { "RXD3" };
-      static const char TXD_NAME_3[] PROGMEM = { "TXD3" };
-    #endif
   #endif
 #endif
 
@@ -103,12 +95,11 @@ const PinInfo pin_array[] PROGMEM = {
    *  Each entry takes up 6 bytes in FLASH:
    *     2 byte pointer to location of the name string
    *     2 bytes containing the pin number
-   *         analog pin numbers were convereted to digital when the array was created
+   *         analog pin numbers were converted to digital when the array was created
    *     2 bytes containing the digital/analog bool flag
    */
 
-  // manually add pins ...
-  #if SERIAL_PORT == 0
+  #if SERIAL_IN_USE(0)
     #if EITHER(AVR_ATmega2560_FAMILY, ARDUINO_ARCH_SAM)
       { RXD_NAME_0, 0, true },
       { TXD_NAME_0, 1, true },
@@ -119,7 +110,9 @@ const PinInfo pin_array[] PROGMEM = {
       { RXD_NAME_0, 3, true },
       { TXD_NAME_0, 2, true },
     #endif
-  #elif SERIAL_PORT == 1
+  #endif
+
+  #if SERIAL_IN_USE(1)
     #if EITHER(AVR_ATmega2560_FAMILY, ARDUINO_ARCH_SAM)
       { RXD_NAME_1, 19, true },
       { TXD_NAME_1, 18, true },
@@ -135,7 +128,9 @@ const PinInfo pin_array[] PROGMEM = {
         { TXD_NAME_1, 15, true },
       #endif
     #endif
-  #elif SERIAL_PORT == 2
+  #endif
+
+  #if SERIAL_IN_USE(2)
     #if EITHER(AVR_ATmega2560_FAMILY, ARDUINO_ARCH_SAM)
       { RXD_NAME_2, 17, true },
       { TXD_NAME_2, 16, true },
@@ -148,7 +143,9 @@ const PinInfo pin_array[] PROGMEM = {
         { TXD_NAME_2, 10, true },
       #endif
     #endif
-  #elif SERIAL_PORT == 3
+  #endif
+
+  #if SERIAL_IN_USE(3)
     #if EITHER(AVR_ATmega2560_FAMILY, ARDUINO_ARCH_SAM)
       { RXD_NAME_3, 15, true },
       { TXD_NAME_3, 14, true },
@@ -166,83 +163,27 @@ const PinInfo pin_array[] PROGMEM = {
     #endif
   #endif
 
-  #ifdef SERIAL_PORT_2
-    #if SERIAL_PORT_2 == 0
-      #if EITHER(AVR_ATmega2560_FAMILY, ARDUINO_ARCH_SAM)
-        { RXD_NAME_0, 0, true },
-        { TXD_NAME_0, 1, true },
-      #elif AVR_ATmega1284_FAMILY
-        { RXD_NAME_0, 8, true },
-        { TXD_NAME_0, 9, true },
-      #elif defined(TARGET_LPC1768)           // TX P0_02  RX P0_03
-        { RXD_NAME_0, 3, true },
-        { TXD_NAME_0, 2, true },
-      #endif
-    #elif SERIAL_PORT_2 == 1
-      #if EITHER(AVR_ATmega2560_FAMILY, ARDUINO_ARCH_SAM)
-        { RXD_NAME_1, 19, true },
-        { TXD_NAME_1, 18, true },
-      #elif AVR_ATmega1284_FAMILY
-        { RXD_NAME_1, 10, true },
-        { TXD_NAME_1, 11, true },
-      #elif defined(TARGET_LPC1768)
-        #ifdef LPC_PINCFG_UART1_P2_00         // TX P2_00  RX P2_01
-          { RXD_NAME_1, 0x41, true },
-          { TXD_NAME_1, 0x40, true },
-        #else                                 // TX P0_15  RX P0_16
-          { RXD_NAME_1, 16, true },
-          { TXD_NAME_1, 15, true },
-        #endif
-      #endif
-    #elif SERIAL_PORT_2 == 2
-      #if EITHER(AVR_ATmega2560_FAMILY, ARDUINO_ARCH_SAM)
-        { RXD_NAME_2, 17, true },
-        { TXD_NAME_2, 16, true },
-      #elif defined(TARGET_LPC1768)
-        #ifdef LPC_PINCFG_UART2_P2_08         // TX P2_08  RX P2_09
-          { RXD_NAME_2, 0x49, true },
-          { TXD_NAME_2, 0x48, true },
-        #else                                 // TX P0_10  RX P0_11
-          { RXD_NAME_2, 11, true },
-          { TXD_NAME_2, 10, true },
-        #endif
-      #endif
-    #elif SERIAL_PORT_2 == 3
-      #if EITHER(AVR_ATmega2560_FAMILY, ARDUINO_ARCH_SAM)
-        { RXD_NAME_3, 15, true },
-        { TXD_NAME_3, 14, true },
-      #elif defined(TARGET_LPC1768)
-        #ifdef LPC_PINCFG_UART3_P0_25         // TX P0_25  RX P0_26
-          { RXD_NAME_3, 0x1A, true },
-          { TXD_NAME_3, 0x19, true },
-        #elif defined(LPC_PINCFG_UART3_P4_28) // TX P4_28  RX P4_29
-          { RXD_NAME_3, 0x9D, true },
-          { TXD_NAME_3, 0x9C, true },
-        #else                                 // TX P0_00  RX P0_01
-          { RXD_NAME_3, 1, true },
-          { TXD_NAME_3, 0, true },
-        #endif
-      #endif
-    #endif
-  #endif
-
   #include "pinsDebug_list.h"
-  #line 172
+  #line 168
 
 };
 
-#include HAL_PATH(../HAL, pinsDebug.h)  // get the correct support file for this CPU
+#include HAL_PATH(.., pinsDebug.h)  // get the correct support file for this CPU
 
 #ifndef M43_NEVER_TOUCH
   #define M43_NEVER_TOUCH(Q) false
 #endif
 
 static void print_input_or_output(const bool isout) {
-  serialprintPGM(isout ? PSTR("Output = ") : PSTR("Input  = "));
+  SERIAL_ECHOF(isout ? F("Output ") : F("Input  "));
+}
+
+static void print_pin_state(const bool state) {
+  SERIAL_ECHOF(state ? F("HIGH") : F("LOW"));
 }
 
 // pretty report with PWM info
-inline void report_pin_state_extended(pin_t pin, const bool ignore, const bool extended=false, PGM_P const start_string=nullptr) {
+inline void report_pin_state_extended(const pin_t pin, const bool ignore, const bool extended=false, FSTR_P const start_string=nullptr) {
   char buffer[MAX_NAME_LENGTH + 1];   // for the sprintf statements
   bool found = false, multi_name_pin = false;
 
@@ -251,12 +192,12 @@ inline void report_pin_state_extended(pin_t pin, const bool ignore, const bool e
       // Use FastIO for pins Teensy doesn't expose
       if (pin == 46) {
         print_input_or_output(IS_OUTPUT(46));
-        SERIAL_CHAR('0' + READ(46));
+        print_pin_state(READ(46));
         return false;
       }
       else if (pin == 47) {
         print_input_or_output(IS_OUTPUT(47));
-        SERIAL_CHAR('0' + READ(47));
+        print_pin_state(READ(47));
         return false;
       }
     #endif
@@ -266,19 +207,16 @@ inline void report_pin_state_extended(pin_t pin, const bool ignore, const bool e
   LOOP_L_N(x, COUNT(pin_array))  {    // scan entire array and report all instances of this pin
     if (GET_ARRAY_PIN(x) == pin) {
       if (!found) {    // report digital and analog pin number only on the first time through
-        if (start_string) serialprintPGM(start_string);
-        serialprintPGM(PSTR("PIN: "));
+        if (start_string) SERIAL_ECHOF(start_string);
+        SERIAL_ECHOPGM("PIN: ");
         PRINT_PIN(pin);
         PRINT_PORT(pin);
-        if (int8_t(DIGITAL_PIN_TO_ANALOG_PIN(pin)) >= 0) {
-          sprintf_P(buffer, PSTR(" (A%2d)  "), DIGITAL_PIN_TO_ANALOG_PIN(pin));    // analog pin number
-          SERIAL_ECHO(buffer);
-        }
-        else SERIAL_ECHO_SP(8);   // add padding if not an analog pin
+        if (int8_t(DIGITAL_PIN_TO_ANALOG_PIN(pin)) >= 0) PRINT_PIN_ANALOG(pin); // analog pin number
+        else SERIAL_ECHO_SP(8);                                                 // add padding if not an analog pin
       }
       else {
         SERIAL_CHAR('.');
-        SERIAL_ECHO_SP(MULTI_NAME_PAD + (start_string ? strlen_P(start_string) : 0));  // add padding if not the first instance found
+        SERIAL_ECHO_SP(MULTI_NAME_PAD + (start_string ? strlen_P(FTOP(start_string)) : 0));  // add padding if not the first instance found
       }
       PRINT_ARRAY_NAME(x);
       if (extended) {
@@ -296,14 +234,14 @@ inline void report_pin_state_extended(pin_t pin, const bool ignore, const bool e
                                                // because this could interfere with inductive/capacitive
                                                // sensors (high impedance voltage divider) and with Pt100 amplifier
                 print_input_or_output(false);
-                SERIAL_ECHO(digitalRead_mod(pin));
+                print_pin_state(digitalRead_mod(pin));
               }
               else if (pwm_status(pin)) {
                 // do nothing
               }
               else {
                 print_input_or_output(true);
-                SERIAL_ECHO(digitalRead_mod(pin));
+                print_pin_state(digitalRead_mod(pin));
               }
             }
             if (!multi_name_pin && extended) pwm_details(pin);  // report PWM capabilities only on the first pass & only if doing an extended report
@@ -317,16 +255,12 @@ inline void report_pin_state_extended(pin_t pin, const bool ignore, const bool e
   } // end of for loop
 
   if (!found) {
-    if (start_string) serialprintPGM(start_string);
-    serialprintPGM(PSTR("PIN: "));
+    if (start_string) SERIAL_ECHOF(start_string);
+    SERIAL_ECHOPGM("PIN: ");
     PRINT_PIN(pin);
     PRINT_PORT(pin);
-    if (int8_t(DIGITAL_PIN_TO_ANALOG_PIN(pin)) >= 0) {
-      sprintf_P(buffer, PSTR(" (A%2d)  "), DIGITAL_PIN_TO_ANALOG_PIN(pin));    // analog pin number
-      SERIAL_ECHO(buffer);
-    }
-    else
-      SERIAL_ECHO_SP(8);   // add padding if not an analog pin
+    if (int8_t(DIGITAL_PIN_TO_ANALOG_PIN(pin)) >= 0) PRINT_PIN_ANALOG(pin); // analog pin number
+    else SERIAL_ECHO_SP(8);                                                 // add padding if not an analog pin
     SERIAL_ECHOPGM("<unused/unknown>");
     if (extended) {
 
@@ -337,7 +271,7 @@ inline void report_pin_state_extended(pin_t pin, const bool ignore, const bool e
         else if (GET_PINMODE(pin)) {
           SERIAL_ECHO_SP(MAX_NAME_LENGTH - 16);
           print_input_or_output(true);
-          SERIAL_ECHO(digitalRead_mod(pin));
+          print_pin_state(digitalRead_mod(pin));
         }
         else {
           if (IS_ANALOG(pin)) {
@@ -349,7 +283,7 @@ inline void report_pin_state_extended(pin_t pin, const bool ignore, const bool e
           SERIAL_ECHO_SP(MAX_NAME_LENGTH - 16);   // add padding if not an analog pin
 
           print_input_or_output(false);
-          SERIAL_ECHO(digitalRead_mod(pin));
+          print_pin_state(digitalRead_mod(pin));
         }
         //if (!pwm_status(pin)) SERIAL_CHAR(' ');    // add padding if it's not a PWM pin
         if (extended) {

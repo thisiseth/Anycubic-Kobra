@@ -20,7 +20,6 @@
  *
  */
 
-
 #include "../../../inc/MarlinConfig.h"
 
 #if ENABLED(NOZZLE_PARK_FEATURE)
@@ -34,9 +33,8 @@
  */
 void GcodeSuite::G27() {
   // Don't allow nozzle parking without homing first
-  constexpr xyz_pos_t park_point = NOZZLE_PARK_POINT;
   if (homing_needed_error()) return;
-  nozzle.park(parser.ushortval('P'),park_point);
+  nozzle.park(parser.ushortval('P'));
 }
 
 #endif // NOZZLE_PARK_FEATURE

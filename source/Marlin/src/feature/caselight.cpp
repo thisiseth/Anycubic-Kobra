@@ -21,7 +21,6 @@
  */
 
 #include "../inc/MarlinConfig.h"
-
 #include "hc32f46x_gpio.h"
 
 #if ENABLED(CASE_LIGHT_ENABLE)
@@ -40,18 +39,9 @@ CaseLight caselight;
 
 bool CaseLight::on = CASE_LIGHT_DEFAULT_ON;
 
-#if ENABLED(CASE_LIGHT_USE_NEOPIXEL)
-  LEDColor CaseLight::color =
-    #ifdef CASE_LIGHT_NEOPIXEL_COLOR
-      CASE_LIGHT_NEOPIXEL_COLOR
-    #else
-      { 255, 255, 255, 255 }
-    #endif
-  ;
-#endif
-
-#ifndef INVERT_CASE_LIGHT
-  #define INVERT_CASE_LIGHT false
+#if CASE_LIGHT_IS_COLOR_LED
+  constexpr uint8_t init_case_light[] = CASE_LIGHT_DEFAULT_COLOR;
+  LEDColor CaseLight::color = { init_case_light[0], init_case_light[1], init_case_light[2] OPTARG(HAS_WHITE_LED, init_case_light[3]) };
 #endif
 
 void CaseLight::update(const bool sflag) {
@@ -70,21 +60,27 @@ void CaseLight::update(const bool sflag) {
     if (sflag && on)
       brightness = brightness_sav;  // Restore last brightness for M355 S1
 
-    const uint8_t i = on ? brightness : 0, n10ct = INVERT_CASE_LIGHT ? 255 - i : i;
+    const uint8_t i = on ? brightness : 0, n10ct = ENABLED(INVERT_CASE_LIGHT) ? 255 - i : i;
+    UNUSED(n10ct);
   #endif
 
-  #if ENABLED(CASE_LIGHT_USE_NEOPIXEL)
-
-    leds.set_color(
-      MakeLEDColor(color.r, color.g, color.b, color.w, n10ct),
-      false
-    );
-
-  #else // !CASE_LIGHT_USE_NEOPIXEL
+  #if CASE_LIGHT_IS_COLOR_LED
+    #if ENABLED(CASE_LIGHT_USE_NEOPIXEL)
+      if (on)
+        // Use current color of (NeoPixel) leds and new brightness level
+        leds.set_color(LEDColor(leds.color.r, leds.color.g, leds.color.b OPTARG(HAS_WHITE_LED, leds.color.w) OPTARG(NEOPIXEL_LED, n10ct)));
+      else
+        // Switch off leds
+        leds.set_off();
+    #else
+      // Use CaseLight color (CASE_LIGHT_DEFAULT_COLOR) and new brightness level
+      leds.set_color(LEDColor(color.r, color.g, color.b OPTARG(HAS_WHITE_LED, color.w) OPTARG(NEOPIXEL_LED, n10ct)));
+    #endif
+  #else // !CASE_LIGHT_IS_COLOR_LED
 
     #if CASELIGHT_USES_BRIGHTNESS
-      if (PWM_PIN(CASE_LIGHT_PIN))
-        analogWrite(pin_t(CASE_LIGHT_PIN), (
+      if (pin_is_pwm())
+        hal.set_pwm_duty(pin_t(CASE_LIGHT_PIN), (
           #if CASE_LIGHT_MAX_PWM == 255
             n10ct
           #else
@@ -94,23 +90,17 @@ void CaseLight::update(const bool sflag) {
       else
     #endif
       {
-        #if 0
-          const bool s = on ? !INVERT_CASE_LIGHT : INVERT_CASE_LIGHT;
-          WRITE(PA13, s ? HIGH : LOW);  //  WRITE
-        #else
           if(on > 0)
             PORT_SetBits(PortA, Pin13);
           else
             PORT_ResetBits(PortA, Pin13);
-        #endif
       }
 
-  #endif // !CASE_LIGHT_USE_NEOPIXEL
-}
+  #endif // !CASE_LIGHT_IS_COLOR_LED
 
-void CaseLight::off() {
-  WRITE(CASE_LIGHT_PIN, LOW);
+  #if ENABLED(CASE_LIGHT_USE_RGB_LED)
+    if (leds.lights_on) leds.update(); else leds.set_off();
+  #endif
 }
-
 
 #endif // CASE_LIGHT_ENABLE
