@@ -939,6 +939,16 @@
               <FileType>8</FileType>
               <FilePath>..\source\framework\cores\Arduino.cpp</FilePath>
             </File>
+            <File>
+              <FileName>serial_base.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\source\Marlin\src\core\serial_base.h</FilePath>
+            </File>
+            <File>
+              <FileName>serial_hook.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\source\Marlin\src\core\serial_hook.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

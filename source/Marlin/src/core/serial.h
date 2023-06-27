@@ -162,11 +162,11 @@ template <typename T, typename U>
 void SERIAL_PRINT(T x, U y) { SERIAL_IMPL.print(x, y); }
 
 template <typename T>
-void SERIAL_PRINTLN(T x, PrintBase y) { SERIAL_IMPL.println(x, y); }
+void SERIAL_PRINTLN(T x, PrintBase y) { SERIAL_IMPL.println(x, (int)y); }
 
 // Flush the serial port
 inline void SERIAL_FLUSH()    { SERIAL_IMPL.flush(); }
-inline void SERIAL_FLUSHTX()  { SERIAL_IMPL.flush(); }
+inline void SERIAL_FLUSHTX()  { /*SERIAL_IMPL.flushTX();*/ }
 
 // Serial echo and error prefixes
 #define SERIAL_ECHO_START()           serial_echo_start()

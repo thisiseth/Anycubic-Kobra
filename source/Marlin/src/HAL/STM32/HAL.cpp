@@ -59,8 +59,8 @@ void MarlinHAL::init() {
   // Ensure F_CPU is a constant expression.
   // If the compiler breaks here, it means that delay code that should compute at compile time will not work.
   // So better safe than sorry here.
-  constexpr int cpuFreq = F_CPU;
-  UNUSED(cpuFreq);
+  //constexpr int cpuFreq = F_CPU;
+  //UNUSED(cpuFreq);
 	
   NVIC_SetPriorityGrouping(0x3);
 	
@@ -78,7 +78,7 @@ void MarlinHAL::init() {
     OUT_WRITE(AUTO_LEVEL_TX_PIN, LOW);
     delay(300);
     OUT_WRITE(AUTO_LEVEL_TX_PIN, HIGH);
-
+  #endif
   //SetTimerInterruptPriorities();
 
   #if ENABLED(EMERGENCY_PARSER) && (USBD_USE_CDC || USBD_USE_CDC_MSC)
@@ -128,7 +128,6 @@ void MarlinHAL::clear_reset_source() {
   #define WDT_TIMEOUT_US TERN(WATCHDOG_DURATION_8S, 8000000, 4000000) // 4 or 8 second timeout
 
 	#include "../cores/iwdg.h"
-  #include "watchdog.h"
 
   bool wdt_init_flag = false;
 
@@ -153,6 +152,6 @@ extern "C" {
 }
 
 // Reset the system to initiate a firmware flash
-WEAK void flashFirmware(const int16_t) { hal.reboot(); }
+void flashFirmware(const int16_t) { NVIC_SystemReset(); }
 
 #endif // HAL_STM32

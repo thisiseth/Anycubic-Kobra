@@ -215,7 +215,7 @@ void GcodeSuite::M115() {
     cap_line(F("COOLER_TEMPERATURE"), ENABLED(HAS_COOLER));
 
     // MEATPACK Compression
-    cap_line(F("MEATPACK"), SERIAL_IMPL.has_feature(port, SerialFeature::MeatPack));
+    //cap_line(F("MEATPACK"), SERIAL_IMPL.has_feature(port, SerialFeature::MeatPack));
 
     // CONFIG_EXPORT
     cap_line(F("CONFIG_EXPORT"), ENABLED(CONFIGURATION_EMBEDDING));
