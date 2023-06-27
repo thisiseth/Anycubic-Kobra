@@ -1555,10 +1555,12 @@ void MarlinUI::init() {
     if (level < 0) level = alert_level = 0;
     if (level < alert_level) return;
     alert_level = level;
+		
+    PGM_P str = FTOP(fmt);
 
     va_list args;
-    va_start(args, FTOP(fmt));
-    vsnprintf_P(status_message, MAX_MESSAGE_LENGTH, FTOP(fmt), args);
+    va_start(args, str);
+    vsnprintf_P(status_message, MAX_MESSAGE_LENGTH, str, args);
     va_end(args);
 
     TERN_(HOST_STATUS_NOTIFICATIONS, hostui.notify(status_message));
