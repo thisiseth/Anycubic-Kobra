@@ -76,9 +76,9 @@ public:
   #if ENABLED(POWER_MONITOR_VOLTAGE)
     FORCE_INLINE static float getVolts() { return volts.value + (POWER_MONITOR_VOLTAGE_OFFSET); }
     void add_voltage_sample(const uint16_t value) { volts.add_sample(value); }
+    FORCE_INLINE static float getVoltsADC() { return volts.filter_buf; }
   #else
     FORCE_INLINE static float getVolts() { return POWER_MONITOR_FIXED_VOLTAGE; }    
-    FORCE_INLINE static float getVoltsADC() { return volts.filter_buf; }
   #endif
 
   #if HAS_POWER_MONITOR_WATTS

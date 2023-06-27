@@ -83,6 +83,7 @@ public:
   #endif
 
   #if HAS_BED_PROBE
+    static int8_t status;
 
     static xyz_pos_t offset;
 		

@@ -1299,7 +1299,8 @@ inline void loud_kill(FSTR_P const lcd_msg, const heater_id_t heater_id) {
   #endif
   #if ENABLED(NOZZLE_PARK_FEATURE)
     if (!homing_needed_error()) {
-      nozzle.park(0);
+		  constexpr xyz_pos_t park_point = NOZZLE_PARK_POINT;
+      nozzle.park(0, park_point);
       planner.synchronize();
     }
   #endif

@@ -32,9 +32,10 @@
  * G27: Park the nozzle
  */
 void GcodeSuite::G27() {
+  constexpr xyz_pos_t park_point = NOZZLE_PARK_POINT;
   // Don't allow nozzle parking without homing first
   if (homing_needed_error()) return;
-  nozzle.park(parser.ushortval('P'), {{NOZZLE_PARK_POINT}});
+  nozzle.park(parser.ushortval('P'), park_point);
 }
 
 #endif // NOZZLE_PARK_FEATURE

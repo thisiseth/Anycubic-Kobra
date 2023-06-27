@@ -204,6 +204,7 @@ inline void serial_println(FSTR_P const fstr) { serial_println_P(FTOP(fstr)); }
 #define _SELP_2(s,v)              serial_echolnpair(F(s),v);
 #define _SELP_3(s,v,V...)         _SEP_2(s,v); DEFER2(_SELP_N_REF)()(TWO_ARGS(V),V);
 #define SERIAL_ECHOLNPGM(V...)    do{ EVAL(_SELP_N(TWO_ARGS(V),V)); }while(0)
+#define SERIAL_ECHOLNPAIR SERIAL_ECHOLNPGM
 
 // Print up to 20 pairs of values. Odd elements must be PSTR pointers.
 #define __SEP_N_P(N,V...)         _SEP_##N##_P(V)

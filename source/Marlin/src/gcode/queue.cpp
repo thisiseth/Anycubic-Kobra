@@ -281,7 +281,7 @@ void GCodeQueue::flush_and_request_resend(const serial_index_t serial_ind) {
 }
 
 static bool serial_data_available(serial_index_t index) {
-  const int a = SERIAL_IMPL.available(index);
+  const int a = SERIAL_IMPL.available();
   #if ENABLED(RX_BUFFER_MONITOR) && RX_BUFFER_SIZE
     if (a > RX_BUFFER_SIZE - 2) {
       PORT_REDIRECT(SERIAL_PORTMASK(index));
@@ -301,7 +301,7 @@ static bool serial_data_available(serial_index_t index) {
   }
 #endif
 
-inline int read_serial(const serial_index_t index) { return SERIAL_IMPL.read(index); }
+inline int read_serial(const serial_index_t index) { return SERIAL_IMPL.read(); }
 
 void GCodeQueue::gcode_line_error(FSTR_P const ferr, const serial_index_t serial_ind) {
   PORT_REDIRECT(SERIAL_PORTMASK(serial_ind)); // Reply to the serial port that sent the command

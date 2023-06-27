@@ -423,3 +423,65 @@ const char* ftostr52sp(const_float_t f) {
   }
   return &conv[1];
 }
+
+const char* utostr3(const uint16_t x) {
+  uint16_t xx = x;
+  if(xx>999) {
+    conv[0] = '9';
+    conv[1] = '9';
+    conv[2] = '9';
+    conv[3] = '\0';
+  }else if(xx>=100) {
+    conv[0] = MINUSOR(xx, RJDIGIT(xx, 100));
+    conv[1] = RJDIGIT(xx, 10);
+    conv[2] = DIGIMOD(xx, 1);
+    conv[3] = '\0';
+  } else if(xx>=10) {
+    conv[0] = DIGIMOD(xx, 10);
+    conv[1] = DIGIMOD(xx, 1);
+    conv[2] = '\0';
+  } else {
+    conv[0] = DIGIMOD(xx, 1);
+    conv[1] = '\0';
+  }
+
+  return conv;
+}
+
+char *ftostr(const float x) {
+  long xx = INTFLOAT(x, 2);
+  uint8_t index =0;
+
+  if(xx<0) {
+    xx=-xx;
+    conv[index]='-' ;   index++;
+  } if(xx>=10000) {
+    conv[index]=DIGIMOD(xx, 10000);index++;
+    conv[index]=DIGIMOD(xx, 1000);index++;
+    conv[index]=DIGIMOD(xx, 100);index++;
+    conv[index] = '.';index++;
+    conv[index]=DIGIMOD(xx, 10);index++;
+    conv[index]=DIGIMOD(xx, 1);index++;
+    conv[index]='\0';
+  } else if(xx>=1000) {
+    conv[index]=DIGIMOD(xx, 1000);index++;
+    conv[index]=DIGIMOD(xx, 100);index++;
+    conv[index] = '.';index++;
+    conv[index]=DIGIMOD(xx, 10);index++;
+    conv[index]=DIGIMOD(xx, 1);index++;
+    conv[index]='\0';
+  } else if(xx>=100) {
+    conv[index]=DIGIMOD(xx, 100);index++;
+    conv[index] = '.';index++;
+    conv[index]=DIGIMOD(xx, 10);index++;
+    conv[index]=DIGIMOD(xx, 1);index++;
+    conv[index]='\0';
+  } else {
+    conv[index]='0';index++;
+    conv[index] = '.';index++;
+    conv[index]=DIGIMOD(xx, 10);index++;
+    conv[index]=DIGIMOD(xx, 1);index++;
+    conv[index]='\0';
+  }
+  return conv;
+}

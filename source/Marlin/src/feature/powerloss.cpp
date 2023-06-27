@@ -29,7 +29,10 @@
 #if ENABLED(POWER_LOSS_RECOVERY)
 
 #include "powerloss.h"
+#include "power_monitor.h"
 #include "../core/macros.h"
+#include "../module/stepper/indirection.h"
+#include "../HAL/shared/eeprom_api.h"
 
 bool PrintJobRecovery::enabled; // Initialized by settings.load()
 
@@ -60,6 +63,10 @@ uint32_t PrintJobRecovery::cmd_sdpos, // = 0
 
 #if ENABLED(FWRETRACT)
   #include "fwretract.h"
+#endif
+
+#if ENABLED(EXTENSIBLE_UI)
+  #include "../lcd/extui/ui_api.h"
 #endif
 
 #define DEBUG_OUT ENABLED(DEBUG_POWER_LOSS_RECOVERY)
@@ -134,20 +141,19 @@ bool PrintJobRecovery::check() {
  * Delete the recovery file and clear the recovery data
  */
 void PrintJobRecovery::purge() {
-  init();
-  card.removeJobRecoveryFile();
+      if(info.valid_head != 0xFF || info.valid_foot != 0xFF) {
+        if(persistentStore.FLASH_If_Erase(FLASH_OUTAGE_DATA_ADDR, FLASH_OUTAGE_DATA_ADDR+0x400) != FLASHIF_OK) {
+        }
+      }
+    
+      memset(&info, 0, sizeof(info));    // init();
 }
 
 /**
  * Load the recovery data, if it exists
  */
 void PrintJobRecovery::load() {
-  if (exists()) {
-    open(true);
-    (void)file.read(&info, sizeof(info));
-    close();
-  }
-  debug(F("Load"));
+     memcpy(&info, (uint8_t *)(FLASH_OUTAGE_DATA_ADDR), sizeof(info));
 }
 
 /**
@@ -252,6 +258,37 @@ void PrintJobRecovery::save(const bool force/*=false*/, const float zraise/*=POW
 }
 
 #if PIN_EXISTS(POWER_LOSS)
+    void PrintJobRecovery::outage() {
+
+      static uint8_t cnt = 0;
+      static uint32_t adc_raw_last = 0;
+
+      if(!enabled) {
+        return ;
+      }
+
+        if(power_monitor.getVoltsADC() < 2200) {
+
+//        SERIAL_ECHOLNPAIR("v:", AD_DMA[2]);
+
+        if(cnt >= 4) {
+            _outage();
+        }
+
+        if(power_monitor.getVoltsADC() < adc_raw_last) {
+            cnt++;
+        }
+
+      } else {
+
+        if(cnt != 0) {
+            cnt = 0;
+        }
+      }
+
+      adc_raw_last = power_monitor.getVoltsADC();
+    }
+
 
   #if ENABLED(BACKUP_POWER_SUPPLY)
 
@@ -309,6 +346,13 @@ void PrintJobRecovery::save(const bool force/*=false*/, const float zraise/*=POW
       constexpr float zraise = 0;
     #endif
 
+    WRITE(HEATER_0_PIN, 0);
+    WRITE(HEATER_BED_PIN, 0);
+    ExtUI::onPowerLoss();
+    WRITE(X_ENABLE_PIN, 1);
+    WRITE(Y_ENABLE_PIN, 1);
+    WRITE(Z_ENABLE_PIN, 1);
+
     // Save the current position, distance that Z was (or should be) raised,
     // and a flag whether the raise was already done here.
     if (IS_SD_PRINTING()) save(true, zraise, ENABLED(BACKUP_POWER_SUPPLY));
@@ -338,14 +382,9 @@ void PrintJobRecovery::save(const bool force/*=false*/, const float zraise/*=POW
  * Save the recovery info the recovery file
  */
 void PrintJobRecovery::write() {
-
-  debug(F("Write"));
-
-  open(false);
-  file.seekSet(0);
-  const int16_t ret = file.write(&info, sizeof(info));
-  if (ret == -1) DEBUG_ECHOLNPGM("Power-loss file write failed.");
-  if (!file.close()) DEBUG_ECHOLNPGM("Power-loss file close failed.");
+  if(persistentStore.FLASH_If_Write(FLASH_OUTAGE_DATA_ADDR, &info, sizeof(info)) != FLASHIF_OK) {
+      SERIAL_ECHOLNPGM("write error");
+  }
 }
 
 /**

@@ -58,9 +58,9 @@ bool PersistentStore::access_start() {
 bool PersistentStore::access_finish() {
   if (eeprom_data_written) {
       TERN_(HAS_PAUSE_SERVO_OUTPUT, PAUSE_SERVO_OUTPUT());
-      DISABLE_ISRS();
+      hal.isr_off();
       Intflash::eeprom_buffer_flush();
-      ENABLE_ISRS();
+      hal.isr_on();
       TERN_(HAS_PAUSE_SERVO_OUTPUT, RESUME_SERVO_OUTPUT());
       eeprom_data_written = false;
   }

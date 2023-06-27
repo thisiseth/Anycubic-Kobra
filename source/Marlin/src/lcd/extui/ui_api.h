@@ -48,6 +48,7 @@
 #if M600_PURGE_MORE_RESUMABLE
   #include "../../feature/pause.h"
 #endif
+#include "../../module/probe.h"
 
 namespace ExtUI {
 
@@ -61,7 +62,9 @@ namespace ExtUI {
   enum extruder_t : uint8_t { E0, E1, E2, E3, E4, E5, E6, E7 };
   enum heater_t   : uint8_t { H0, H1, H2, H3, H4, H5, BED, CHAMBER, COOLER };
   enum fan_t      : uint8_t { FAN0, FAN1, FAN2, FAN3, FAN4, FAN5, FAN6, FAN7 };
-  enum result_t   : uint8_t { PID_STARTED, PID_BAD_EXTRUDER_NUM, PID_TEMP_TOO_HIGH, PID_TUNING_TIMEOUT, PID_DONE };
+  enum result_t   : uint8_t { PID_STARTED, PID_BAD_EXTRUDER_NUM, PID_TEMP_TOO_HIGH, PID_TUNING_TIMEOUT, PID_DONE };  
+  enum language_t : uint8_t { ENG, CHS };
+  enum audio_t    : uint8_t { ON, OFF };
 
   constexpr uint8_t extruderCount = EXTRUDERS;
   constexpr uint8_t hotendCount   = HOTENDS;
@@ -149,6 +152,7 @@ namespace ExtUI {
   #endif
 
   uint32_t getProgress_seconds_elapsed();
+	void clearProgress_seconds_elapsed();
 
   #if HAS_PREHEAT
     uint16_t getMaterial_preset_E(const uint16_t);
@@ -284,6 +288,8 @@ namespace ExtUI {
   #if HAS_BED_PROBE
     float getProbeOffset_mm(const axis_t);
     void setProbeOffset_mm(const_float_t, const axis_t);
+    inline bool getProbeState(void) { return PROBE_TRIGGERED(); }
+    void ProbeTare(void);
   #endif
 
   #if ENABLED(BACKLASH_GCODE)
@@ -304,7 +310,8 @@ namespace ExtUI {
     void setFilamentRunoutEnabled(const bool);
     bool getFilamentRunoutState();
     void setFilamentRunoutState(const bool);
-
+    uint8_t getFilamentRunoutOriginState();
+		
     #if HAS_FILAMENT_RUNOUT_DISTANCE
       float getFilamentRunoutDistance_mm();
       void setFilamentRunoutDistance_mm(const_float_t);
@@ -400,6 +407,7 @@ namespace ExtUI {
    * Should be declared by EXTENSIBLE_UI and will be called by Marlin
    */
   void onStartup();
+  void onParamInit();
   void onIdle();
   void onMediaInserted();
   void onMediaError();
@@ -415,6 +423,8 @@ namespace ExtUI {
   void onUserConfirmRequired(FSTR_P const fstr);
   void onStatusChanged(const char * const msg);
   void onStatusChanged(FSTR_P const fstr);
+  void onSurviveInKilled();
+  void onKilledStatusGet();
   void onHomingStart();
   void onHomingDone();
   void onSteppersDisabled();
@@ -426,6 +436,7 @@ namespace ExtUI {
   void onSettingsStored(bool success);
   void onSettingsLoaded(bool success);
   #if ENABLED(POWER_LOSS_RECOVERY)
+    void onPowerLoss();
     void onPowerLossResume();
   #endif
   #if HAS_PID_HEATING

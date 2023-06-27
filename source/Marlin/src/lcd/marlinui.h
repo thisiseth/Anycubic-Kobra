@@ -402,7 +402,8 @@ public:
   static void status_printf(int8_t level, FSTR_P const fmt, ...);
 
   #if HAS_DISPLAY
-
+		
+    static void param_init();
     static void update();
 
     static void abort_print();
@@ -679,6 +680,11 @@ public:
     static void eeprom_alert(const EEPROM_Error) TERN_(EEPROM_AUTO_INIT, {});
   #endif
 
+  #if ENABLED(PREHEAT_BEFORE_LEVELING)
+    static void probe_preheating_start();
+    static void probe_preheating_stop();
+  #endif
+			
   //
   // Special handling if a move is underway
   //

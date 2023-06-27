@@ -42,6 +42,7 @@
 //#include "../../../../libs/build_date.h"
 #include "../../../../MarlinCore.h"
 #include "../../../../feature/powerloss.h"
+#include "../../../module/stepper.h"
 
 namespace Anycubic {
 
@@ -961,7 +962,7 @@ namespace Anycubic {
 
       tft_last_check = millis();
       while(!TFTSer.available()) {
-        TERN_(USE_WATCHDOG, HAL_watchdog_refresh());
+        TERN_(USE_WATCHDOG, hal.watchdog_refresh());
         if(millis() - tft_last_check > 500) {
           data_index = 0;
           data_received = 0;
@@ -1887,7 +1888,7 @@ namespace Anycubic {
 
           case 5:   // turn off the xyz motor
             if(!isMoving()) {
-                disable_all_steppers();
+                stepper.disable_all_steppers();
                 set_all_unhomed();
             }
           break;
@@ -3309,7 +3310,7 @@ namespace Anycubic {
               ChangePageOfTFT(page_index_last);
             }
 
-            disable_all_steppers();
+            stepper.disable_all_steppers();
 
           break;
 

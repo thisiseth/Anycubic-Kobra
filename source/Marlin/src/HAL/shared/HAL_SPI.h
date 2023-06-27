@@ -26,8 +26,6 @@
  * Core Marlin definitions for SPI, implemented in the HALs
  */
 
-#ifdef USE_SPI
-
 #include "Marduino.h"
 #include <stdint.h>
 
@@ -93,5 +91,3 @@ void spiSend(uint32_t chan, const uint8_t *buf, size_t n);
 
 // Read single byte from specified SPI channel
 uint8_t spiRec(uint32_t chan);
-
-#endif

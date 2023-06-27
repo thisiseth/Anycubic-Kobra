@@ -1930,4 +1930,17 @@ void MarlinUI::init() {
 
   #endif // EEPROM_AUTO_INIT
 
+  #if ENABLED(PREHEAT_BEFORE_LEVELING)
+    void MarlinUI::probe_preheating_start()
+    {
+//        TERN_(EXTENSIBLE_UI, ExtUI::onStatusChanged(status_message));
+        TERN_(EXTENSIBLE_UI, ExtUI::onStatusChanged("Probe preheat start"));
+    }
+
+    void MarlinUI::probe_preheating_stop()
+    {
+        TERN_(EXTENSIBLE_UI, ExtUI::onStatusChanged("Probe preheat stop"));
+    }
+  #endif
+
 #endif // EEPROM_SETTINGS

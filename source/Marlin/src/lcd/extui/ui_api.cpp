@@ -687,7 +687,8 @@ namespace ExtUI {
     void setFilamentRunoutEnabled(const bool value) { runout.enabled = value; }
     bool getFilamentRunoutState()                   { return runout.filament_ran_out; }
     void setFilamentRunoutState(const bool value)   { runout.filament_ran_out = value; }
-
+    uint8_t getFilamentRunoutOriginState()          { return runout.get_state_original(); }
+		
     #if HAS_FILAMENT_RUNOUT_DISTANCE
       float getFilamentRunoutDistance_mm()                 { return runout.runout_distance(); }
       void setFilamentRunoutDistance_mm(const_float_t value) { runout.set_runout_distance(constrain(value, 0, 999)); }
@@ -892,6 +893,15 @@ namespace ExtUI {
   #if HAS_BED_PROBE
     float getProbeOffset_mm(const axis_t axis) { return probe.offset.pos[axis]; }
     void setProbeOffset_mm(const_float_t val, const axis_t axis) { probe.offset.pos[axis] = val; }
+		
+    void ProbeTare(void) {
+      #ifdef NOZZLE_AS_PROBE
+        OUT_WRITE(AUTO_LEVEL_TX_PIN, LOW);
+        delay(300);
+        OUT_WRITE(AUTO_LEVEL_TX_PIN, HIGH);
+        delay(100);
+      #endif
+    }
   #endif
 
   #if ENABLED(BACKLASH_GCODE)
@@ -911,6 +921,10 @@ namespace ExtUI {
   uint32_t getProgress_seconds_elapsed() {
     const duration_t elapsed = print_job_timer.duration();
     return elapsed.value;
+  }
+
+  void clearProgress_seconds_elapsed() {
+    print_job_timer.reset();
   }
 
   #if HAS_LEVELING
@@ -1067,7 +1081,7 @@ namespace ExtUI {
     #endif
   }
 
-  void setFeedrate_percent(const_float_t value) { feedrate_percentage = constrain(value, 10, 500); }
+  void setFeedrate_percent(const_float_t value) { feedrate_percentage = constrain(value, 30, 500); }
 
   void coolDown() { thermalManager.cooldown(); }
 
@@ -1188,7 +1202,7 @@ namespace ExtUI {
 // At the moment we hook into MarlinUI methods, but this could be cleaned up in the future
 
 void MarlinUI::init_lcd() { ExtUI::onStartup(); }
-
+void MarlinUI::param_init() { ExtUI::onParamInit(); }
 void MarlinUI::update() { ExtUI::onIdle(); }
 
 void MarlinUI::kill_screen(FSTR_P const error, FSTR_P const component) {
