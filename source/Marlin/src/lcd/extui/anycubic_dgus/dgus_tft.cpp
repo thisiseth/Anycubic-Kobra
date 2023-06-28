@@ -296,7 +296,7 @@ namespace Anycubic {
           fun_array[page_index_now-1-120]();  // ENG page_index is 120 more than CHS
         } else {
 #if ACDEBUG(AC_MARLIN)
-          SERIAL_ECHOLN("lcd function not exists");
+          SERIAL_ECHOLNPAIR("lcd function not exists: ", page_index_now);
           SERIAL_ECHOLNPAIR("page_index_last: ", page_index_last);
           SERIAL_ECHOLNPAIR("page_index_last_2: ", page_index_last_2);
 #endif
@@ -546,13 +546,12 @@ namespace Anycubic {
   }
 
   void DgusTFT::StatusChange(const char * const msg)  {
-    static uint8_t probe_cnt = 0;
     #if ACDEBUG(AC_MARLIN)
       SERIAL_ECHOLNPAIR("StatusChange() ", msg);
       SERIAL_ECHOLNPAIR("printer_state:", printer_state);
       SERIAL_ECHOLNPAIR("pause_state:", pause_state);
-      SERIAL_ECHOLNPAIR("probe_cnt:", probe_cnt);
     #endif
+    static uint8_t probe_cnt = 0;
     bool msg_matched = false;
     // The only way to get printer status is to parse messages
     // Use the state to minimise the work we do here.
