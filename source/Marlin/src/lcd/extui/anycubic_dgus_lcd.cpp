@@ -46,6 +46,10 @@ namespace ExtUI {
   void onPrinterKilled(PGM_P const error, PGM_P const component) {
     Dgus.PrinterKilled(error,component);
   }
+	
+  void onPrinterKilled(FSTR_P const error, FSTR_P const component) {
+    onPrinterKilled(FTOP(error), FTOP(component));
+  }
 
   void onMediaInserted() { Dgus.MediaEvent(AC_media_inserted); }
   void onMediaError()    { Dgus.MediaEvent(AC_media_error);    }
@@ -65,8 +69,8 @@ namespace ExtUI {
   void onStatusChanged(const char * const msg)       { Dgus.StatusChange(msg);            }
 
   void onHomingStart()    { Dgus.HomingStart(); }
-  void onHomingComplete() { Dgus.HomingComplete(); }
-  void onPrintFinished() {}
+  void onHomingDone() { Dgus.HomingComplete(); }
+  void onPrintDone() {}
 
   void onFactoryReset() {
     Dgus.page_index_now = 121;
@@ -95,17 +99,24 @@ namespace ExtUI {
     memcpy(&Dgus.lcd_info_back, buff, sizeof(Dgus.lcd_info_back));
   }
 
-  void onConfigurationStoreWritten(bool success) {
+  void onPostprocessSettings() {
+    // Called after loading or resetting stored settings
+  }
+
+  void onSettingsStored(bool success) {
     // Called after the entire EEPROM has been written,
     // whether successful or not.
   }
 
-  void onConfigurationStoreRead(bool success) {
+  void onSettingsLoaded(bool success) {
     // Called after the entire EEPROM has been read,
     // whether successful or not.
   }
 
   #if HAS_MESH
+    void onLevelingStart() {}
+    void onLevelingDone() {}
+		
     void onMeshLevelingStart() {}
 
     void onMeshUpdate(const int8_t xpos, const int8_t ypos, const float zval) {

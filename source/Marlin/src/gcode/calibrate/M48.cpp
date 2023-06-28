@@ -144,7 +144,7 @@ void GcodeSuite::M48() {
   bool probing_good = !isnan(t);
 
   if (probing_good) {
-    randomSeed(millis());
+    //randomSeed(millis());
 
     float sample_sum = 0.0;
 

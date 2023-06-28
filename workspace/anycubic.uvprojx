@@ -1819,6 +1819,11 @@
               <FileType>8</FileType>
               <FilePath>..\source\Marlin\src\gcode\feature\caselight\M355.cpp</FilePath>
             </File>
+            <File>
+              <FileName>M919.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\source\Marlin\src\gcode\feature\trinamic\M919.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2605,6 +2610,11 @@
               <FilePath>..\source\framework\TMCStepper\source\TMC2130_bitfields.h</FilePath>
             </File>
             <File>
+              <FileName>TMC2130Stepper.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\source\framework\TMCStepper\source\TMC2130Stepper.cpp</FilePath>
+            </File>
+            <File>
               <FileName>TMC2160_bitfields.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\source\framework\TMCStepper\source\TMC2160_bitfields.h</FilePath>
@@ -2648,6 +2658,16 @@
               <FileName>TMCStepper.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\source\framework\TMCStepper\source\TMCStepper.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>TMCStepper.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\source\framework\TMCStepper\TMCStepper.h</FilePath>
+            </File>
+            <File>
+              <FileName>TMCStepper_UTILITY.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\source\framework\TMCStepper\TMCStepper_UTILITY.h</FilePath>
             </File>
           </Files>
         </Group>

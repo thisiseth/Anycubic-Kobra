@@ -194,7 +194,7 @@ extern volatile uint32_t systick_uptime_millis;
 // Memory related
 #define __bss_end __bss_end__
 
-extern "C" char* _sbrk(int incr);
+//extern "C" char* _sbrk(int incr);
 
 #pragma GCC diagnostic push
 #if GCC_VERSION <= 50000
@@ -202,8 +202,9 @@ extern "C" char* _sbrk(int incr);
 #endif
 
 static inline int freeMemory() {
-  volatile char top;
-  return &top - reinterpret_cast<char*>(_sbrk(0));
+  //volatile char top;
+  //return &top - reinterpret_cast<char*>(_sbrk(0));
+	return 0;
 }
 
 #pragma GCC diagnostic pop
