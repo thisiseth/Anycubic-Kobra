@@ -2109,6 +2109,11 @@
               <FileType>5</FileType>
               <FilePath>..\source\Marlin\src\lcd\extui\anycubic_dgus\dgus_Tunes.h</FilePath>
             </File>
+            <File>
+              <FileName>language_en.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\source\Marlin\src\lcd\language\language_en.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

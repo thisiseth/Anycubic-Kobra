@@ -546,13 +546,14 @@ namespace Anycubic {
   }
 
   void DgusTFT::StatusChange(const char * const msg)  {
+    static uint8_t probe_cnt = 0;
     #if ACDEBUG(AC_MARLIN)
       SERIAL_ECHOLNPAIR("StatusChange() ", msg);
       SERIAL_ECHOLNPAIR("printer_state:", printer_state);
       SERIAL_ECHOLNPAIR("pause_state:", pause_state);
+      SERIAL_ECHOLNPAIR("probe_cnt:", probe_cnt);
     #endif
     bool msg_matched = false;
-    static uint8_t probe_cnt = 0;
     // The only way to get printer status is to parse messages
     // Use the state to minimise the work we do here.
     switch (printer_state) {
@@ -704,7 +705,7 @@ namespace Anycubic {
 
   void DgusTFT::SendtoTFT(PGM_P str) {  // A helper to print PROGMEN string to the panel
     #if ACDEBUG(AC_SOME)
-      serialprintPGM(str);
+      serial_println_P(str);
     #endif
     while (const char c = pgm_read_byte(str++)) TFTSer.print(c);
   }
@@ -1118,7 +1119,7 @@ namespace Anycubic {
     strncpy(selectedfile, panel_command + 4, command_len - 4);
     selectedfile[command_len - 5] = '\0';
     #if ACDEBUG(AC_FILE)
-      SERIAL_ECHOLNPAIR_F(" Selected File: ",selectedfile);
+      SERIAL_ECHOLNPAIR(" Selected File: ",selectedfile);
     #endif
     switch (selectedfile[0]) {
       case '/':   // Valid file selected

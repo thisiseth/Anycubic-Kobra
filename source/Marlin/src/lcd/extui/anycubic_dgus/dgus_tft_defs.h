@@ -31,7 +31,7 @@
 #pragma once
 #include "../../../../inc/MarlinConfigPre.h"
 
-#define ACDEBUGLEVEL 0
+#define ACDEBUGLEVEL 255
 
 #if ACDEBUGLEVEL
   // Bit-masks for selective debug:
@@ -89,7 +89,6 @@
 #define  AC_msg_bed_temp_abnormal      PSTR("J28")
 
 #define MARLIN_msg_probing_point       PSTR("Probing Point ")
-#define MARLIN_msg_start_probing       PSTR("Probing Point 1/25")
 #define MARLIN_msg_probing_failed      PSTR("Probing Failed")
 #define MARLIN_msg_ready               PSTR(" Ready.")
 #define MARLIN_msg_print_paused        PSTR("Print Paused")

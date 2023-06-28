@@ -117,8 +117,6 @@ namespace ExtUI {
     void onLevelingStart() {}
     void onLevelingDone() {}
 		
-    void onMeshLevelingStart() {}
-
     void onMeshUpdate(const int8_t xpos, const int8_t ypos, const float zval) {
       // Called when any mesh points are updated
       //SERIAL_ECHOLNPAIR("onMeshUpdate() x:", xpos, " y:", ypos, " z:", zval);

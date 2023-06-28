@@ -1557,7 +1557,7 @@ void MarlinUI::init() {
     alert_level = level;
 
     va_list args;
-    va_start(args, FTOP(fmt));
+    va_start(args, fmt);
     vsnprintf_P(status_message, MAX_MESSAGE_LENGTH, FTOP(fmt), args);
     va_end(args);
 
