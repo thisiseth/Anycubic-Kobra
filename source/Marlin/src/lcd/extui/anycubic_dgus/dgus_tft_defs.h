@@ -31,7 +31,7 @@
 #pragma once
 #include "../../../../inc/MarlinConfigPre.h"
 
-#define ACDEBUGLEVEL 255
+#define ACDEBUGLEVEL 0
 
 #if ACDEBUGLEVEL
   // Bit-masks for selective debug:
