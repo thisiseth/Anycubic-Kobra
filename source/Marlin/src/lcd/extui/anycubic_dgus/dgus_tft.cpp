@@ -462,13 +462,18 @@ namespace Anycubic {
   void DgusTFT::FilamentRunout()  {
     #if ACDEBUG(AC_MARLIN)
       SERIAL_ECHOLNPAIR("FilamentRunout() printer_state ", printer_state);
+      SERIAL_ECHOLNPAIR("pause_state:", pause_state);
     
     // 1 Signal filament out
 //    SendtoTFTLN(isPrintingFromMedia() ? AC_msg_filament_out_alert : AC_msg_filament_out_block);
 //    printer_state = AC_printer_filament_out;
 
       SERIAL_ECHOLNPAIR("getFilamentRunoutState: ", getFilamentRunoutState());
+      SERIAL_ECHOLNPAIR("getFilamentRunoutOriginState: ", getFilamentRunoutOriginState());
     #endif
+
+    if (printer_state == AC_printer_pausing && pause_state == AC_paused_filament_lack)
+		    return;
 
     pop_up_index = 15;  // show filament lack.
     

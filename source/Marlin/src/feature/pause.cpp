@@ -279,6 +279,7 @@ bool load_filament(const_float_t slow_load_length/*=0*/, const_float_t fast_load
 
       TERN_(HOST_PROMPT_SUPPORT, hostui.filament_load_prompt()); // Initiate another host prompt.
 
+			#undef M600_PURGE_MORE_RESUMABLE
       #if M600_PURGE_MORE_RESUMABLE
         if (show_lcd) {
           // Show "Purge More" / "Resume" menu and wait for reply
