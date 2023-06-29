@@ -831,6 +831,9 @@ class Stepper {
       static void microstep_init();
     #endif
 
+    static void AWAIT_TIMED_PULSE(uint8_t DIR);
+    static void AWAIT_HIGH_PULSE(void);
+    static void AWAIT_LOW_PULSE(void);
 };
 
 extern Stepper stepper;

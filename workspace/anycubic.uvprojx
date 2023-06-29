@@ -2515,34 +2515,9 @@
               <FilePath>..\source\framework\TMCStepper\source\COOLCONF.cpp</FilePath>
             </File>
             <File>
-              <FileName>DRV_CONF.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\framework\TMCStepper\source\DRV_CONF.cpp</FilePath>
-            </File>
-            <File>
               <FileName>DRV_STATUS.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\source\framework\TMCStepper\source\DRV_STATUS.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>DRVCONF.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\framework\TMCStepper\source\DRVCONF.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>DRVCTRL.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\framework\TMCStepper\source\DRVCTRL.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>DRVSTATUS.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\framework\TMCStepper\source\DRVSTATUS.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>ENCMODE.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\framework\TMCStepper\source\ENCMODE.cpp</FilePath>
             </File>
             <File>
               <FileName>GCONF.cpp</FileName>
@@ -2560,11 +2535,6 @@
               <FilePath>..\source\framework\TMCStepper\source\PWMCONF.cpp</FilePath>
             </File>
             <File>
-              <FileName>RAMP_STAT.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\framework\TMCStepper\source\RAMP_STAT.cpp</FilePath>
-            </File>
-            <File>
               <FileName>SERIAL_SWITCH.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\source\framework\TMCStepper\source\SERIAL_SWITCH.cpp</FilePath>
@@ -2573,26 +2543,6 @@
               <FileName>SERIAL_SWITCH.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\source\framework\TMCStepper\source\SERIAL_SWITCH.h</FilePath>
-            </File>
-            <File>
-              <FileName>SGCSCONF.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\framework\TMCStepper\source\SGCSCONF.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>SHORT_CONF.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\framework\TMCStepper\source\SHORT_CONF.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>SMARTEN.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\framework\TMCStepper\source\SMARTEN.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>SW_MODE.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\source\framework\TMCStepper\source\SW_MODE.cpp</FilePath>
             </File>
             <File>
               <FileName>SW_SPI.h</FileName>
