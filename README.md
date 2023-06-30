@@ -22,5 +22,6 @@ same with the holy grail linear advance feature - it kind of works but suitable 
 feel free to try
 
 issues found by me so far:
-* after triggering the filament runout and pressing resume on the screen it.. doesnt resume, most likely i messed something up in dgus_tft.cpp
+* ~~after triggering the filament runout and pressing resume on the screen it.. doesnt resume, most likely i messed something up in dgus_tft.cpp~~
 * after flashing new firmware the printer does not restart properly, needs debugging though this sounds VERY minor
+* multiple gcodes with similar shortnames on SD result in always printing the first one
